@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import { Profiler } from "react";
+import bcrypt from "bcryptjs";
 
+// Define the user schema
 const userSchema = new mongoose.Schema({
   username:{
     type: String,
@@ -21,8 +22,20 @@ const userSchema = new mongoose.Schema({
   ProfileImage:{
     type: String,
     default:""
-  }
+  },
 });
+
+// hash password before saving user to db 
+userSchema.pre("save", async function(next) {
+  if (this.isModified("password")) return next();
+   
+  // Hash the password using bcrypt or any other hashing library
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.default.hash(this.password, salt);
+  
+  next();
+}
+); 
 
 const User = mongoose.model("User", userSchema);
 
