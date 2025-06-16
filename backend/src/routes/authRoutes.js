@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs"; 
 
 
 
@@ -73,7 +73,35 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
- res.send("login");
+ try{
+    const { email, password } = req.body;
+
+    if(!email || !password) return res.status(400).json({ message: "All fields are required"});
+    
+    //check if user exists
+    const user = await User.findOne({ email });
+    if(!user) return res.status(400).json({ message: "Invalid credentials"});
+
+    //check if password is correct 
+    const isPasswordValid = await user.comparePassword(password);
+    if(!isPasswordValid) return res.status(400).json({ message: "Invalid credentials"});
+  
+    //generate token and send to client
+    const token = generateToken(user._id);
+
+    res.status(200).json({
+        token,
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            profileImage: user.profileImage,
+        },
+    }); 
+ }catch (error){
+    console.error("Error logging in user:", error);
+    res.status(500).json({ message: "Internal server error" });
+ }
 });
 
 export default router;
