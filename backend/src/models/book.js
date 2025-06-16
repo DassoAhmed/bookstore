@@ -19,12 +19,14 @@ const bookSchema = new mongoose.Schema({
     min: 1,
     max: 5,
   },
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true, 
   },
-}, { timestamps: true });
+}, 
+{ timestamps: true }
+);
 
 const Book = mongoose.model("Book", bookSchema);
 export default Book;
