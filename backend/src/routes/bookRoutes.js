@@ -67,5 +67,37 @@ router.get("/", protectRoute, async (req, res) => {
     }
 })
 
+//delete a book
+router.delete("/:id", protectRoute, async (req, res) => {
+    try {
+        const bookId = req.params.id;
+        // Find the book by ID and delete it
+        const Book = await Book.findByIdAndDelete(bookId);
+
+        if (!Book) return res.status(404).json({ message: "Book not found" });     
+        res.status(200).json({ message: "Book deleted successfully" });
+
+        //check if user is the creator of the book
+        if (Book.userId.toString() !== req.user._id.toString()); 
+        return res.status(403).json({ message: "You are not authorized to delete this book" });
+        
+        // Optionally, you can also delete the image from Cloudinary if needed
+        if(Book.image && Book.imageincludes("cloudinary")) {
+            try {
+               const publicId = Book.image.split("/").pop().split(".")[0]; // Extract public ID from URL
+               await cloudinary.uploader.destroy(publicId);     
+            } catch (deleteError) {
+                    console.log("Error deleting image from Cloudinary:", deleteError);
+            }
+        }
+
+        await Book.deleteOne();
+         
+        res.json({ message: "Book deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting book:", error);
+        res.status(500).json({ message: error.message });
+    }
+});
 
 export default router;
