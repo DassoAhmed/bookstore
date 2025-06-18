@@ -8,9 +8,18 @@ npm install
 npm init -y
 ```
 ```
-λ npm i express mongoose dotenv jsonwebtoken cloudinary bcryptjs cors
+ npm i express mongoose dotenv jsonwebtoken cloudinary bcryptjs cors
 ```
 ```
-λ npm i nodemon -D
-λ npm run dev
+ npm i nodemon -D
+ npm run dev
+```
+
+# mobile setup
+## cd mobile
+```
+npx create-expo-app@latest .
+npm run reset-project
+npm install
+npm install -g expo-cli
 ```
