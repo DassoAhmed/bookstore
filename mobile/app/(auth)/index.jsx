@@ -6,7 +6,7 @@ import { View,
          ActivityIndicator, 
          KeyboardAvoidingView,
          Platform} from "react-native";
-         import {Link} from "expo-router";
+import {Link} from "expo-router";
 import styles from "../../assets/styles/login.styles";
 import { useState } from "react";
 import COLORS from "../../constants/colors";
@@ -93,7 +93,7 @@ export default function Login() {
         </View>
         </View>
 
-        {/* BUTTON */}
+        {/* BUTTON SIGNUP */}
         <TouchableOpacity
           style={styles.button}
           onPress={handleLogin}
