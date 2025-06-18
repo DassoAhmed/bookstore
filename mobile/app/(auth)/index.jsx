@@ -3,7 +3,9 @@ import { View,
          Image, 
          TextInput, 
          TouchableOpacity, 
-         ActivityIndicator } from "react-native";
+         ActivityIndicator, 
+         KeyboardAvoidingView,
+         Platform} from "react-native";
          import {Link} from "expo-router";
 import styles from "../../assets/styles/login.styles";
 import { useState } from "react";
@@ -19,6 +21,10 @@ export default function Login() {
   const handleLogin = () => {}
 
   return (
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === "ios" ? "padding" : "height" } 
+    >
     <View style={styles.container}>
       {/* { ILUSTRATION } */}
       <View style={styles.topIllustration}>
@@ -111,5 +117,6 @@ export default function Login() {
       </View>
     </View>
     </View>
+    </KeyboardAvoidingView>
   );
 }
