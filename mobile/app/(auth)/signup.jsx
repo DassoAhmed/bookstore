@@ -4,13 +4,15 @@ import { View,
          KeyboardAvoidingView,
          TouchableOpacity,
          ActivityIndicator,
-         Platform } from "react-native";
+         Platform, 
+         Alert} from "react-native";
 import styles from "../../assets/styles/login.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 import { useState } from "react";
 import {Link} from "expo-router";
 import { useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
 
 
 export default function Signup() {
@@ -18,12 +20,31 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setisLoading] = useState(false);
+  // Using Zustand for global state management
+  // This allows us to manage user state across the app
+  // and access it in other components/screens.
+  // The useAuthStore hook provides access to the store.
+  // We can use it to get the current user, loading state, and a function to set the user.   
+  const {user, isLoading, registerUser } = useAuthStore();
+
+  // Log the user state to see if it's being set correctly
+  // This is useful for debugging purposes.
+  // You can remove this console.log once you confirm that the user state is working as expected.
+
+  // console.log("User is here:", user);
 
   const router = useRouter();
   // Function to handle sign up logic
 
-  const handleSignUp = () => {}  
+  // This is a placeholder function, you would replace it with your actual sign up logic
+  // For example, you might want to call an API to create a new user account
+  // and then navigate to the login screen or home screen upon success.
+
+  const handleSignUp = () => {
+    const result = await registerUser(username, email, password);
+
+    if(result.success) Alert.alert("Error", result.error);
+  };  
 
   return (
     <KeyboardAvoidingView
@@ -135,5 +156,5 @@ export default function Signup() {
         </View>
        </View>
     </KeyboardAvoidingView>
-  );
+  ); 
 }
