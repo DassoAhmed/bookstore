@@ -16,7 +16,7 @@ export const useAuthStore = create((set) => ({
     try {
         // Simulate an API call to register a user
         // Replace this with your actual API call logic 
-        const response = await fetch( "https://localhost:3000/api/auth/register", {
+        const response = await fetch( "http://localhost:3000/api/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const useAuthStore = create((set) => ({
 
         const data = await response.json();
 
-        if (!response.ok)throw new Error(data.message || "Something went wrong"); 
+        if (!response.ok) throw new Error(data.message || "Something went wrong"); 
      
         await AsyncStorage.setItem("user", JSON.stringify(data.user));
         await AsyncStorage.setItem("token", data.token)

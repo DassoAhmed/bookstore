@@ -35,15 +35,10 @@ export default function Signup() {
 
   const router = useRouter();
   // Function to handle sign up logic
+  const handleSignUp = async () => {
+    const result = await registerUser(username, email,password);
 
-  // This is a placeholder function, you would replace it with your actual sign up logic
-  // For example, you might want to call an API to create a new user account
-  // and then navigate to the login screen or home screen upon success.
-
-  const handleSignUp = () => {
-    const result = await registerUser(username, email, password);
-
-    if(result.success) Alert.alert("Error", result.error);
+    if(!result.success) Alert.alert("Error", result.error);
   };  
 
   return (
@@ -73,7 +68,7 @@ export default function Signup() {
                   placeholder="Dasso"
                   placeholderTextColor={COLORS.placeholderText}
                   value={username}
-                  onchangeText={setUsername}
+                  onChangeText={setUsername}
                   autoCapitalize="none"
                 />
               </View>
@@ -117,7 +112,7 @@ export default function Signup() {
             placeholder="Enter your password"
             placeholderTextColor={COLORS.placeholderText}
             value={password}
-            onChange={setPassword}
+            onChangeText={setPassword}
             secureTextEntry={!showPassword}        
             />
 
