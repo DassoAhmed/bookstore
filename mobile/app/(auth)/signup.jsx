@@ -20,27 +20,27 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   // Using Zustand for global state management
   // This allows us to manage user state across the app
   // and access it in other components/screens.
   // The useAuthStore hook provides access to the store.
-  // We can use it to get the current user, loading state, and a function to set the user.   
-  const {user, isLoading, registerUser } = useAuthStore();
-
+  const { user, isLoading, register  } = useAuthStore(); 
+ 
   // Log the user state to see if it's being set correctly
   // This is useful for debugging purposes.
   // You can remove this console.log once you confirm that the user state is working as expected.
 
-  // console.log("User is here:", user);
-
   const router = useRouter();
   // Function to handle sign up logic
   const handleSignUp = async () => {
-    const result = await registerUser(username, email,password);
 
-    if(!result.success) Alert.alert("Error", result.error);
-  };  
+    const result = await register(username, email, password);
 
+    if(!result.success) Alert.alert("Error", result.error || "Registration failed"); 
+
+
+}; 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
