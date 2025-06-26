@@ -91,7 +91,7 @@ export default function Create() {
 
       const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
 
-      const response = await fetch(`${API_URL}/api/books`,{
+      const response = await fetch(`${API_URL}/books`,{
         method:"POST",
         headers:{
           Authorization:`Bearer ${token}`, 
@@ -105,14 +105,7 @@ export default function Create() {
         }),
       })
 
-      let data;
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-        data = await response.json();
-      } else {
-        const text = await response.text();
-        throw new Error(`Unexpected response from server: ${text}`);
-      }
+      const data = await response.json();
       if(!response.ok) throw new Error(data.message || "Something went wrong");
 
       Alert.alert("Success", "Your book recommendation has been posted");
