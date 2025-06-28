@@ -40,8 +40,9 @@ export default function Home() {
         );
 
       setBooks(uniqueBooks);
-      // console.log("Fetched books:", data.books);
-      // console.log("Unique books:", uniqueBooks);
+      // setBooks(data.books);
+      // console.log("Books:", data.books);
+      // console.log("Unique Books:", uniqueBooks);
       
       setHasMore(pageNum < data.totalPages);
       setPage(pageNum);
@@ -54,7 +55,7 @@ export default function Home() {
   }
 
   useEffect(()=>{
-    fetchBooks();
+    fetchBooks()
   },[]);
 
   const handleLoadMore = async  () => {}
@@ -106,7 +107,16 @@ export default function Home() {
       keyExtractor={(item) => item._id}
       contentContainerStyle={styles.listContainer}
       showsVerticalScrollIndicator={false}
+
+      ListHeaderComponent={
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Book Vibes</Text>
+          <Text style={styles.headerSubtitle}>Discover new Vibes shared by our community</Text>
+        </View>
+      }
       />
+
+      
       
     </View>
   )
