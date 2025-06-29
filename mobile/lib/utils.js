@@ -1,5 +1,5 @@
 //this function will convert the createdAt to this format: "May 2023"
-export const formatDate = (dateString) => {
+export const formatMemberSince = (dateString) => {
   const date = new Date(dateString);
   const month = date.toLocaleString('default', { month: 'short' });
   const year = date.getFullYear();
@@ -7,7 +7,7 @@ export const formatDate = (dateString) => {
 };
 
 //this function will convert the createdAt to this format: "May 20, 2023"
-export const formatDateWithDay = (dateString) => {
+export const formatPublish = (dateString) => {
 const date = new Date(dateString);
   const month = date.toLocaleString('default', { month: 'long' });
   const day = date.getDate();
