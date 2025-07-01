@@ -214,7 +214,7 @@ export default function Create() {
               ) : (
                 <>
                 <Ionicons
-                name="cloud-update-outline"
+                name="cloud-upload-outline"
                 size={20}
                 color={COLORS.white}
                 style={styles.buttonIcon}
