@@ -47,9 +47,9 @@ router.post("/register", async (req, res) => {
             email,
             username,
             password,
-            profileImage: randomAvatar,
-
-        })
+            profileImage,
+            createdAt: user.createdAt,
+        });
 
         // save user to database
         await user.save();
@@ -96,6 +96,7 @@ router.post("/login", async (req, res) => {
             username: user.username,
             email: user.email,
             profileImage: user.profileImage,
+            createdAt: user.createdAt,
         },
     }); 
  }catch (error){

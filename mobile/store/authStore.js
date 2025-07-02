@@ -6,6 +6,7 @@ export const useAuthStore = create((set) => ({
   user: null,
   token:null,
   isLoading: false,
+  isCheckingAuth:true,
 // Function to load user data from AsyncStorage
   register: async (username,email,password) => {
    
@@ -84,7 +85,8 @@ export const useAuthStore = create((set) => ({
     set({ token, user });
   } catch (error) {
     console.log("Auth check error:", error);
-    
+  } finally{
+    set({isCheckingAuth:false});
   }
   },
 

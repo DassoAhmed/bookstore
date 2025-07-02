@@ -9,12 +9,13 @@ import { useAuthStore } from "../../store/authStore";
 
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
+import { useRouter } from "expo-router";
 
 import styles from "../../assets/styles/home.styles";
 import { API_URL } from "../../constants/api";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
-import {formatPublishDate, utils} from "../../lib/utils"
+import {formatPublishDate} from "../../lib/utils"
 import Loader from "../../components/Loader";
 
 
@@ -25,6 +26,8 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
+  // const router = useRouter();
 
   const fetchBooks = async (pageNum = 1, refresh = false) => {
     try {
